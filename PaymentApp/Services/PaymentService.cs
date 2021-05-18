@@ -56,8 +56,10 @@ namespace PaymentApp.Services
                             }
                             else
                             {
-                                var calculatedAmount = CalculateAmount(trs.Origin, trs.Amount);
-                                account.Balance = account.Balance + calculatedAmount;
+                                var fixedAmount = amount - trs.Amount;
+                                var calculatedAmount = CalculateAmount(trs.Origin, fixedAmount);
+                                account.Balance = account.Balance - calculatedAmount;
+                                trs.Amount = amount;
                             }
                         }
                         else
